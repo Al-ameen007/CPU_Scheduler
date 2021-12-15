@@ -17,4 +17,12 @@ public class Scheduler {
             System.out.println(shortestJobProcesses.get(i).name);
         }
     }
+
+    public void priorityScheduling(ArrayList<Process> processes){
+        ArrayList<Process> shortestJobProcesses = new ArrayList<Process>();
+        shortestJobProcesses = sortByShortestTime(processes);
+        for (int i = 0, n = processes.size(); i < n; i++){
+            System.out.println(shortestJobProcesses.get(i).name);
+        }
+    }
 }
