@@ -1,7 +1,7 @@
 import java.awt.*;
 
 
-public class Process implements Comparable<Process>{
+public class Process{
     String name;
     Color color;
     int arrivalTime;
@@ -17,17 +17,4 @@ public class Process implements Comparable<Process>{
         this.priorityNumber = priorityNumber;
         this.waitingTime = 0;
     }
-
-
-    public int compareTo(Process comparesTo) {
-        int compareShortestTime = comparesTo.burstTime;
-        return compareShortestTime - this.burstTime;
-    }
-
-
-    /*public int compareTo(Process comparesTo) {
-        int compareShortestTime = ((Process) comparesTo).priorityNumber;
-        return compareShortestTime - this.priorityNumber;
-    }*/
-
 }
