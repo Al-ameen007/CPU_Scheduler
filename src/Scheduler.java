@@ -1,80 +1,8 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 public class Scheduler {
-
-    public static ArrayList<Process> sortByShortestTime(ArrayList<Process> processes) {
-        Collections.sort(processes);
-        return processes;
-    }
-
-    public static ArrayList<Process> sortByHighestPriority(ArrayList<Process> processes){
-        processes.sort(Comparator.comparingInt((Process p) -> p.priorityNumber));
-        return processes;
-    }
-
-    public static void shortestJobFirst(ArrayList<Process> processes) {
-        ArrayList<Process> shortestJobProcesses = new ArrayList<>(sortByShortestTime(processes));
-        Collections.reverse(shortestJobProcesses);
-        int n = processes.size(), time = 0; double totalWaitingTime = 0.0, totalTurnaroundTime = 0.0;
-        ArrayList<Process> output = new ArrayList<>(n);
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < shortestJobProcesses.size(); j++) {
-                if (shortestJobProcesses.get(j).arrivalTime <= time) {
-                    shortestJobProcesses.get(j).waitingTime = time - shortestJobProcesses.get(j).arrivalTime;
-                    shortestJobProcesses.get(j).turnaroundTime = shortestJobProcesses.get(j).waitingTime + shortestJobProcesses.get(j).burstTime;
-                    totalWaitingTime += shortestJobProcesses.get(j).waitingTime;
-                    totalTurnaroundTime += shortestJobProcesses.get(j).turnaroundTime;
-                    time += shortestJobProcesses.get(j).burstTime;
-                    if (shortestJobProcesses.contains(shortestJobProcesses.get(j))) {
-                        output.add(shortestJobProcesses.get(j));
-                    }
-                    shortestJobProcesses.remove(shortestJobProcesses.get(j));
-                    break;
-                }
-            }
-        double averageWaitingTime = totalWaitingTime/output.size();
-        double averageTurnaroundTime = totalTurnaroundTime/output.size();
-
-        for (Process process : output) {
-            System.out.println("Process name: " + process.name + " ,Process waiting time: " + process.waitingTime + " , Process turnaround time: " + process.turnaroundTime);
-        }
-        System.out.println("Average Waiting Time is: " + averageWaitingTime);
-        System.out.println("Average Turnaround Time is: " + averageTurnaroundTime);
-    }
-
-    public static void priorityScheduling(ArrayList<Process> processes) {
-        ArrayList<Process> highestPriorityJob = new ArrayList<>(sortByHighestPriority(processes));
-        int n = processes.size(), time = 0; double totalWaitingTime = 0.0, totalTurnaroundTime = 0.0;
-        ArrayList<Process> output = new ArrayList<>(n);
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < highestPriorityJob.size(); j++) {
-                if (highestPriorityJob.get(j).arrivalTime <= time) {
-                    highestPriorityJob.get(j).waitingTime = time - highestPriorityJob.get(j).arrivalTime;
-                    highestPriorityJob.get(j).turnaroundTime = highestPriorityJob.get(j).waitingTime + highestPriorityJob.get(j).burstTime;
-                    totalWaitingTime += highestPriorityJob.get(j).waitingTime;
-                    totalTurnaroundTime += highestPriorityJob.get(j).turnaroundTime;
-                    time += highestPriorityJob.get(j).burstTime;
-                    if (highestPriorityJob.contains(highestPriorityJob.get(j))) {
-                        output.add(highestPriorityJob.get(j));
-                    }
-                    highestPriorityJob.remove(highestPriorityJob.get(j));
-                    break;
-                }
-            }
-
-        double averageWaitingTime = totalWaitingTime/output.size();
-        double averageTurnaroundTime = totalTurnaroundTime/output.size();
-
-        for (Process process : output) {
-            System.out.println("Process name: " + process.name + " ,Process waiting time: " + process.waitingTime + " , Process turnaround time: " + process.turnaroundTime);
-        }
-        System.out.println("Average Waiting Time is: " + averageWaitingTime);
-        System.out.println("Average Turnaround Time is: " + averageTurnaroundTime);
-    }
-
 
     public static void main(String[] args) {
         ArrayList<Process> processes = new ArrayList<>(3);
@@ -85,7 +13,11 @@ public class Scheduler {
         processes.add(p2);
         processes.add(p3);
 
-        shortestJobFirst(processes);
-        priorityScheduling(processes);
+        ShortestJobFirst sjf = new ShortestJobFirst(processes);
+        HighestPriority hp = new HighestPriority(processes);
+
+
+        sjf.shortestJobFirst(processes);
+        hp.priorityScheduling(processes);
     }
 }
