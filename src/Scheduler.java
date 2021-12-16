@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class Scheduler {
 
     public static ArrayList<Process> sortByShortestTime(ArrayList<Process> processes) {
-        processes.sort(Comparator.comparingInt((Process p) -> p.burstTime));
+        Collections.sort(processes);
         return processes;
     }
 
@@ -51,7 +51,6 @@ public class Scheduler {
                     TotalWaitingTime += highestPriorityJob.get(j).waitingTime;
                     time += highestPriorityJob.get(j).burstTime;
                     if (highestPriorityJob.contains(highestPriorityJob.get(j))) {
-                        System.out.println(highestPriorityJob.get(j).name);
                         output.add(highestPriorityJob.get(j));
                     }
                     highestPriorityJob.remove(highestPriorityJob.get(j));
