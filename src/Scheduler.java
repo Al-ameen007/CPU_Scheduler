@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class Scheduler {
-
+    //TODO input must be sorted by Arrival time
     public static void main(String[] args) {
         ArrayList<Process> processes = new ArrayList<>(3);
         Process p1 = new Process("p1", Color.red, 0, 4, 1);
