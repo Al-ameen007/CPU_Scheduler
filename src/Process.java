@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Process implements Comparable<Process>{
+public class Process{
     String name;
     Color color;
     int arrivalTime;
@@ -16,6 +16,7 @@ public class Process implements Comparable<Process>{
         this.burstTime = burstTime;
         this.priorityNumber = priorityNumber;
     }
+<<<<<<< Updated upstream
     public int compareTo(Process comparesTo) {
         int compareShortestTime = ((Process) comparesTo).burstTime;
         return compareShortestTime - this.burstTime;
@@ -23,4 +24,6 @@ public class Process implements Comparable<Process>{
 
 
 
+=======
+>>>>>>> Stashed changes
 }
