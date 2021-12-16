@@ -13,11 +13,11 @@ public class Scheduler {
         processes.add(p2);
         processes.add(p3);
 
-        ShortestJobFirst sjf = new ShortestJobFirst(processes);
-        HighestPriority hp = new HighestPriority(processes);
+        //ShortestJobFirst sjf = new ShortestJobFirst(processes);
+        //HighestPriority hp = new HighestPriority(processes);
 
 
-        sjf.shortestJobFirst(processes);
-        hp.priorityScheduling(processes);
+        ShortestJobFirst.shortestJobFirst(processes);
+        HighestPriority.priorityScheduling(processes);
     }
 }
