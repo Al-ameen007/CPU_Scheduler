@@ -1,6 +1,5 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+
 
 public class Process implements Comparable<Process>{
     String name;
@@ -8,6 +7,7 @@ public class Process implements Comparable<Process>{
     int arrivalTime;
     int burstTime;
     int priorityNumber;
+    int waitingTime;
 
     Process(String name, Color color, int arrivalTime, int burstTime ,int priorityNumber){
         this.name = name;
@@ -15,12 +15,19 @@ public class Process implements Comparable<Process>{
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
         this.priorityNumber = priorityNumber;
+        this.waitingTime = 0;
     }
+
+
     public int compareTo(Process comparesTo) {
-        int compareShortestTime = ((Process) comparesTo).burstTime;
+        int compareShortestTime = comparesTo.burstTime;
         return compareShortestTime - this.burstTime;
     }
 
 
+    /*public int compareTo(Process comparesTo) {
+        int compareShortestTime = ((Process) comparesTo).priorityNumber;
+        return compareShortestTime - this.priorityNumber;
+    }*/
 
 }
