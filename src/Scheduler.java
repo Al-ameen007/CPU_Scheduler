@@ -16,7 +16,7 @@ public class Scheduler {
     }
 
     public static void shortestJobFirst(ArrayList<Process> processes) {
-        ArrayList<Process> shortestJobProcesses = sortByShortestTime(processes);
+        ArrayList<Process> shortestJobProcesses = new ArrayList<>(sortByShortestTime(processes));
         Collections.reverse(shortestJobProcesses);
         int n = processes.size(), time = 0; double TotalWaitingTime = 0.0;
         ArrayList<Process> output = new ArrayList<>(n);
@@ -41,7 +41,7 @@ public class Scheduler {
     }
 
     public static void priorityScheduling(ArrayList<Process> processes) {
-        ArrayList<Process> highestPriorityJob = sortByHighestPriority(processes);
+        ArrayList<Process> highestPriorityJob = new ArrayList<>(sortByHighestPriority(processes));
         int n = processes.size(), time = 0; double TotalWaitingTime = 0.0;
         ArrayList<Process> output = new ArrayList<>(n);
         for (int i = 0; i < n; i++)
