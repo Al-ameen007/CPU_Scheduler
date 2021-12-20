@@ -11,7 +11,7 @@ public class ProcessAgat extends Process{
         return Math.round(quantum * 0.4);
     }
     void info(){
-        System.out.print("Name: "+ name + " BursetTime: " + burstTime + " Quantium: " + quantum);
+        System.out.print("Name: "+ name + " BurstTime: " + burstTime + " Quantum: " + quantum);
     }
     void update_agate(AgatScheduler agatScheduler){
         //all of them share the same V1, V2
