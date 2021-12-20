@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class HighestPriority {
@@ -15,6 +16,7 @@ public class HighestPriority {
 
     public static void priorityScheduling(ArrayList<Process> processes) {
         ArrayList<Process> highestPriorityJob = new ArrayList<>(sortByHighestPriority(processes));
+        Collections.reverse(highestPriorityJob);
         int n = processes.size(), time = 0; double totalWaitingTime = 0.0, totalTurnaroundTime = 0.0;
         ArrayList<Process> output = new ArrayList<>(n);
         for (int i = 0; i < n; i++)
