@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Scheduler {
     //TODO input must be sorted by Arrival time
-    //TODO change the arraylist to queue
+    //TODO change the arraylist to queue ask the TA
     public static void main(String[] args) {
         /*ArrayList<Process> processes = new ArrayList<>(3);
         Process p1 = new Process("p1", Color.red, 0, 4, 1);

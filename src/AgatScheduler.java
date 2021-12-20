@@ -51,7 +51,7 @@ public class AgatScheduler {
                 idx = i;
             }
         }
-        // TODO if more than process got the same agatFactor we'll pick the lowest arrival time but is it Necessarly?
+        // TODO if more than process got the same agatFactor we'll pick the lowest arrival time but is it Necessarly? ASK the TA
         if(idx == index) //you can't pick the last executed processes
             return -1; //No one is better in the agatFactor
         return idx;
@@ -122,7 +122,7 @@ public class AgatScheduler {
                     }
                 }
                 if(flag == -1)
-                    processes.add(holder); //TODO add it right
+                    processes.add(holder); 
                 else{
                     processes.add(holder);
                     for(int i = flag; i < processes.size(); i++){
