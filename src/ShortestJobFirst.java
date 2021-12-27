@@ -73,7 +73,7 @@ public class ShortestJobFirst {
         return flag && (processes.size() > 5);
     }
 
-    public static ArrayList<Process> solveStarve(ArrayList<Process> input) {
+    public static void solveStarve(ArrayList<Process> input) {
         input = new ArrayList<>(shortestJobFirst(input));
         int i = 0;
         while (isStarved(input) && i < 50) {
@@ -87,6 +87,5 @@ public class ShortestJobFirst {
             input = new ArrayList<>(shortestJobFirst(input));
         }
         display(input);
-        return input;
     }
 }

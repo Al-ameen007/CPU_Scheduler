@@ -23,25 +23,13 @@ public class Scheduler {
         processes.add(p6);
         int contextSwitch = 1;
 
-        /*
-        ArrayList<Process> processes = new ArrayList<>(3);
-        Process p1 = new Process("p1", Color.red, 0, 4, 1);
-        Process p2 = new Process("p2", Color.blue, 1, 4, 3);
-        Process p3 = new Process("p3", Color.gray, 1, 6, 2);
-        processes.add(p1);
-        processes.add(p2);
-        processes.add(p3);
-        */
 
+        ShortestJobFirst.solveStarve(processes);
+        HighestPriority.solveStarve(processes, contextSwitch);
 
-        ArrayList<Process> sjf= ShortestJobFirst.solveStarve(processes);
-        ArrayList<Process> ps = HighestPriority.solveStarve(processes, contextSwitch);
-        ShortestJobFirst.display(sjf);
-        HighestPriority.display(ps);
 
 
         /*      ArrayList<ProcessAgat> processAgats = new ArrayList<>(4);
-=======
         /*ArrayList<ProcessAgat> processAgats = new ArrayList<>(4);
 
         ProcessAgat p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);
@@ -54,11 +42,10 @@ public class Scheduler {
 
         processAgats.add(p4);
         AgatScheduler s = new AgatScheduler(processAgats);
-        s.agatS();*/
+        s.agatS();
+        AgatScheduler s = new AgatScheduler(processAgats);*/
 
-        processAgats.add(p4);*/
-
-        ArrayList<Process> processes = new ArrayList<>(5);
+/*        ArrayList<Process> processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 0, 8, 0);
         Process p2 = new Process("p2", Color.blue, 1, 4, 0);
         Process p3 = new Process("p3", Color.gray, 2, 2, 0);
@@ -72,9 +59,6 @@ public class Scheduler {
         processes.add(p5);
         processes.add(p6);
         ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
-        srtf.Schedule();
-
-        //AgatScheduler s = new AgatScheduler(processAgats);
-        //s.agatS();
+        srtf.Schedule();*/
     }
 }
