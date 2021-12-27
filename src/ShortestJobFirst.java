@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class ShortestJobFirst {
+    private static int threshold = 0;
+    private static int k = 0;
     ArrayList<Process> processes;
 
     ShortestJobFirst(ArrayList<Process> processes) {
@@ -19,11 +21,18 @@ public class ShortestJobFirst {
         for (Process process : shortestJobProcesses) {
             totalBurst += process.burstTime;
         }
+        while(k == 0){
+            for (Process process : shortestJobProcesses) {
+                totalBurst += process.burstTime;
+            }
+            threshold = totalBurst - shortestJobProcesses.get(n - 1).burstTime;
+            k++;
+        }
         ArrayList<Process> output = new ArrayList<>(n);
         for (int i = 0; i < n; i++)
             for (int j = 0; j < shortestJobProcesses.size(); j++) {
                 if (shortestJobProcesses.get(j).arrivalTime <= time) {
-                    shortestJobProcesses.get(j).starved = time - shortestJobProcesses.get(j).arrivalTime > 12;
+                    shortestJobProcesses.get(j).starved = time - shortestJobProcesses.get(j).arrivalTime > threshold;
                     shortestJobProcesses.get(j).waitingTime = time - shortestJobProcesses.get(j).arrivalTime;
                     shortestJobProcesses.get(j).turnaroundTime = shortestJobProcesses.get(j).waitingTime + shortestJobProcesses.get(j).burstTime;
                     time += shortestJobProcesses.get(j).burstTime;

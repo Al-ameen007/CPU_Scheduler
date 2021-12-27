@@ -9,10 +9,10 @@ public class Scheduler {
     public static void main(String[] args) {
         ArrayList<Process> processes = new ArrayList<>(3);
         Process p1 = new Process("p1", Color.red, 0, 2, 3);
-        Process p2 = new Process("p2", Color.blue, 0, 3, 1);
-        Process p3 = new Process("p3", Color.gray, 0, 6, 4);
-        Process p4 = new Process("p4", Color.cyan, 0, 21, 5);
-        Process p5 = new Process("p5", Color.green, 0, 5, 2);
+        Process p2 = new Process("p2", Color.blue, 2, 3, 1);
+        Process p3 = new Process("p3", Color.gray, 5, 6, 4);
+        Process p4 = new Process("p4", Color.cyan, 1, 21, 12);
+        Process p5 = new Process("p5", Color.green, 4, 5, 2);
         Process p6 = new Process("p6", Color.black, 4, 6, 2);
         processes.add(p1);
         processes.add(p2);
@@ -20,9 +20,10 @@ public class Scheduler {
         processes.add(p4);
         processes.add(p5);
         processes.add(p6);
-        int contextSwitch = 0;
+        int contextSwitch = 1;
 
-
+        ShortestJobFirst.solveStarve(processes);
+        HighestPriority.solveStarve(processes, contextSwitch);
 
         /*      ArrayList<ProcessAgat> processAgats = new ArrayList<>(4);
         ProcessAgat p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HighestPriority {
+    private static int threshold = 0;
+    private static int k = 0;
     ArrayList<Process> processes;
 
     HighestPriority(ArrayList<Process> processes) {
@@ -16,14 +18,18 @@ public class HighestPriority {
     public static ArrayList<Process> priorityScheduling(ArrayList<Process> processes, int contextSwitch) {
         ArrayList<Process> highestPriorityJob = new ArrayList<>(sortByHighestPriority(processes));
         int n = processes.size(), time = 0, totalBurst = 0;
-        for (Process process : highestPriorityJob) {
-            totalBurst += process.burstTime;
+        while(k == 0){
+            for (Process process : highestPriorityJob) {
+                totalBurst += process.burstTime;
+            }
+            threshold = totalBurst - highestPriorityJob.get(n - 1).burstTime;
+            k++;
         }
         ArrayList<Process> output = new ArrayList<>(n);
         for (int i = 0; i < n; i++)
             for (int j = 0; j < highestPriorityJob.size(); j++) {
                 if (highestPriorityJob.get(j).arrivalTime <= time) {
-                    highestPriorityJob.get(j).starved = time - highestPriorityJob.get(j).arrivalTime > 11;
+                    highestPriorityJob.get(j).starved = time - highestPriorityJob.get(j).arrivalTime > threshold;
                     highestPriorityJob.get(j).waitingTime = time - highestPriorityJob.get(j).arrivalTime;
                     highestPriorityJob.get(j).turnaroundTime = highestPriorityJob.get(j).waitingTime + highestPriorityJob.get(j).burstTime;
                     time += highestPriorityJob.get(j).burstTime + contextSwitch;
