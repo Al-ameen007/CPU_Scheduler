@@ -22,8 +22,10 @@ public class Scheduler {
         processes.add(p6);
         int contextSwitch = 1;
 
-        ShortestJobFirst.solveStarve(processes);
-        HighestPriority.solveStarve(processes, contextSwitch);
+        ArrayList<Process> sjf= ShortestJobFirst.solveStarve(processes);
+        ArrayList<Process> ps = HighestPriority.solveStarve(processes, contextSwitch);
+        ShortestJobFirst.display(sjf);
+        HighestPriority.display(ps);
 
         /*      ArrayList<ProcessAgat> processAgats = new ArrayList<>(4);
         ProcessAgat p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);

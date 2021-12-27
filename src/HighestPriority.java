@@ -70,7 +70,7 @@ public class HighestPriority {
         return flag && (processes.size() > 5);
     }
 
-    public static void solveStarve(ArrayList<Process> input, int contextSwitch) {
+    public static ArrayList<Process> solveStarve(ArrayList<Process> input, int contextSwitch) {
         input = new ArrayList<>(priorityScheduling(input, contextSwitch));
         int i = 0;
         while (isStarved(input) && i < 50) {
@@ -83,6 +83,6 @@ public class HighestPriority {
             i++;
             input = new ArrayList<>(priorityScheduling(input, contextSwitch));
         }
-        display(input);
+        return (input);
     }
 }
