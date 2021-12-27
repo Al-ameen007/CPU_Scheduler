@@ -9,6 +9,7 @@ public class Process implements Comparable<Process>{
     int priorityNumber;
     int waitingTime;
     int turnaroundTime;
+    int remainingTime;
 
     Process(String name, Color color, int arrivalTime, int burstTime ,int priorityNumber){
         this.name = name;
@@ -18,6 +19,7 @@ public class Process implements Comparable<Process>{
         this.priorityNumber = priorityNumber;
         this.waitingTime = 0;
         this.turnaroundTime = 0;
+        this.remainingTime = burstTime;
     }
 
 
