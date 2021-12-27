@@ -22,6 +22,5 @@ public class Process {
         this.turnaroundTime = 0;
         this.dummyBurstTime = burstTime;
         this.remainingTime = burstTime;
-    } 
     }
 }
