@@ -11,13 +11,6 @@ public class AgatScheduler {
         processes = p;
         current_Time = 0;
     }
-    Boolean check(){
-        for(ProcessAgat ag : processes){
-            if(ag.burstTime > 0)
-                return true;
-        }
-        return false;
-    }
     void update_V1(){
         last_arrival_time = processes.get(processes.size()-1).arrivalTime;
         if (last_arrival_time > 10)
@@ -60,7 +53,7 @@ public class AgatScheduler {
         //The Vs computed before the execution
         int index = 0;
         update_V1();
-        while(check()){
+        while(processes.size() > 0){
             update_V2();
             update_AgFactor();
             System.out.print(" " + current_Time + " ");

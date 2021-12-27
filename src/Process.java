@@ -10,6 +10,7 @@ public class Process {
     int waitingTime;
     int turnaroundTime;
     boolean starved = false;
+    int remainingTime;
 
     Process(String name, Color color, int arrivalTime, int burstTime, int priorityNumber) {
         this.name = name;
@@ -20,6 +21,7 @@ public class Process {
         this.waitingTime = 0;
         this.turnaroundTime = 0;
         this.dummyBurstTime = burstTime;
+        this.remainingTime = burstTime;
+    } 
     }
-
 }
