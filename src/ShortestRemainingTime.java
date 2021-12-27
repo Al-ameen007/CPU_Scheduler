@@ -25,8 +25,6 @@ public class ShortestRemainingTime {
 
             foundValidProcess = true;
 
-            //System.out.println(i + ". T: " + currentTime + " " + (ps.remainingTime <= minRemainingTime )+ " R1 : " + ps.remainingTime + " R2: " + minRemainingTime);
-
             if (ps.remainingTime < minRemainingTime)
             {
                 minRemainingTime = ps.remainingTime;
@@ -63,8 +61,6 @@ public class ShortestRemainingTime {
             // At each iteration, we are going to check whether there's a process with less remainingTimeIsWaiting
             int i = getMinRemainingTime(time);
 
-            //System.out.print("Time: " + time + " ");
-
             if(i == -1) {
                 time++;
                 continue;
@@ -72,8 +68,6 @@ public class ShortestRemainingTime {
 
             Process ps = processes.get(i);
             ps.remainingTime -= 1;
-            //System.out.println("Name: " + ps.name + ", Remaining: " + ps.remainingTime + ", Arrival: " + ps.arrivalTime);
-            System.out.print(ps.name + " ");
 
             if(ps.remainingTime <= 0) {
                 minRemainingTime = processes.get(0).remainingTime;
