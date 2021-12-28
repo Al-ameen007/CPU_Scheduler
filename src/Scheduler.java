@@ -75,7 +75,6 @@ public class Scheduler {
     }
 
     // TODO delete
-
     public static void main(String[] args) {
 
         /*
@@ -128,7 +127,7 @@ public class Scheduler {
         processes.add(p5);
         processes.add(p6);
         ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
-        srtf.setStarvation(true);
+        //srtf.setStarvation(true);
         srtf.Schedule();
     }
 }

@@ -1,14 +1,21 @@
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class ShortestRemainingTime {
 
     private ArrayList<Process> processes;
+    private ArrayList<Process> processesCompleted;
+    private ArrayList<String> output;
     private boolean shouldSolveStarvation = false;
+    int sumWaiting = 0;
+    int sumTurnaround = 0;
     int minRemainingTime;
     int minIndex;
 
     ShortestRemainingTime (ArrayList<Process> processes) {
         this.processes = processes;
+        processesCompleted = new ArrayList<Process>();
+        output = new ArrayList<String>();
         minRemainingTime = processes.get(0).remainingTime;
         minIndex = 0;
     }
@@ -82,23 +89,49 @@ public class ShortestRemainingTime {
         {
             // At each iteration, we are going to check whether there's a process with less remainingTimeIsWaiting
             int i = getMinRemainingTime(time);
+
             if(i == -1) {
                 time++;
+                output.add("null");
                 continue;
             }
 
             Process ps = processes.get(i);
             ps.remainingTime -= 1;
-            System.out.print(ps.name + " ");
-            //System.out.println("Name: " + ps.name + ", Remaining: " + ps.remainingTime + ", Arrival: " + ps.arrivalTime);
+            output.add(ps.name);
+
+            time++;
 
             if(ps.remainingTime <= 0) {
                 minRemainingTime = processes.get(0).remainingTime;
                 minIndex = 0;
+                ps.turnaroundTime = time - ps.arrivalTime;
+                ps.waitingTime = ps.turnaroundTime - ps.burstTime;
+                sumWaiting += ps.waitingTime;
+                sumTurnaround += ps.turnaroundTime;
                 processes.remove(ps);
+                processesCompleted.add(ps);
             }
-
-            time++;
         }
+        displayOutput();
+    }
+
+    public void displayOutput()
+    {
+        System.out.print("Execution Order: ");
+        for (String s: output) {
+            System.out.print(s + " ");
+        }
+
+        System.out.println();
+
+        for(Process p : processesCompleted)
+        {
+            System.out.print("Name: " + p.name + ". Waiting Time: " + p.waitingTime + ". Turnaround: " + p.turnaroundTime + "\n");
+        }
+        
+        int n = processesCompleted.size();
+        System.out.println("Avg Waiting Time: " + sumWaiting / n);
+        System.out.println("Avg Turnaround Time: " + sumTurnaround / n);
     }
 }
