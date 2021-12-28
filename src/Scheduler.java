@@ -75,9 +75,10 @@ public class Scheduler {
     }
 
     // TODO delete
-    /*
+
     public static void main(String[] args) {
 
+        /*
         ArrayList<Process> processes = new ArrayList<>(3);
         Process p1 = new Process("p1", Color.red, 0, 2, 3);
         Process p2 = new Process("p2", Color.blue, 2, 3, 1);
@@ -111,14 +112,15 @@ public class Scheduler {
         AgatScheduler s = new AgatScheduler(processAgats);
         s.agatS();
         AgatScheduler s = new AgatScheduler(processAgats);
+        */
 
         ArrayList<Process> processes = new ArrayList<>(5);
-        Process p1 = new Process("p1", Color.red, 0, 8, 0);
-        Process p2 = new Process("p2", Color.blue, 1, 4, 0);
-        Process p3 = new Process("p3", Color.gray, 2, 2, 0);
-        Process p4 = new Process("p4", Color.gray, 3, 1, 0);
-        Process p5 = new Process("p5", Color.gray, 4, 3, 0);
-        Process p6 = new Process("p6", Color.gray, 5, 2, 0);
+        Process p1 = new Process("p1", Color.red, 0, 8, 0, 0);
+        Process p2 = new Process("p2", Color.blue, 1, 4, 0,0 );
+        Process p3 = new Process("p3", Color.gray, 2, 2, 0, 0);
+        Process p4 = new Process("p4", Color.gray, 3, 1, 0, 0);
+        Process p5 = new Process("p5", Color.gray, 4, 3, 0, 0);
+        Process p6 = new Process("p6", Color.gray, 5, 2, 0, 0);
         processes.add(p1);
         processes.add(p2);
         processes.add(p3);
@@ -126,6 +128,7 @@ public class Scheduler {
         processes.add(p5);
         processes.add(p6);
         ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
+        srtf.setStarvation(true);
         srtf.Schedule();
-    }*/
+    }
 }
