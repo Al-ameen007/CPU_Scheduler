@@ -69,6 +69,10 @@ public class Scheduler {
         }
     }
 
+    public int getSize()
+    {
+        return processes.size();
+    }
 
     // TODO delete
     /*
