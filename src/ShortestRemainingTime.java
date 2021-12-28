@@ -129,7 +129,7 @@ public class ShortestRemainingTime {
         {
             System.out.print("Name: " + p.name + ". Waiting Time: " + p.waitingTime + ". Turnaround: " + p.turnaroundTime + "\n");
         }
-        
+
         int n = processesCompleted.size();
         System.out.println("Avg Waiting Time: " + sumWaiting / n);
         System.out.println("Avg Turnaround Time: " + sumTurnaround / n);
