@@ -90,8 +90,8 @@ public class GUI extends JFrame {
 
 
     private JButton scheduleButton;
-    private JComboBox scheduleOptions;
-    private JPanel mainPanel;
+    private JComboBox<String> scheduleOptions;
+    public JPanel mainPanel;
     private JButton addProcessorButton;
     private JLabel schedulerName;
     private JLabel awatLabel;
@@ -108,10 +108,8 @@ public class GUI extends JFrame {
         availableColors.add(Color.pink);
         availableColors.add(Color.cyan);
 
-        scheduleOptions.addItem("AGAT");
-        scheduleOptions.addItem("SRTF");
-        scheduleOptions.addItem("SJF");
-        scheduleOptions.addItem("Priority");
+        String proc[] = {"AGAT", "SRTF", "SJF", "Priority"};
+        scheduleOptions = new JComboBox<String>(proc);
         scheduleOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,12 +118,11 @@ public class GUI extends JFrame {
                 scheduler.setScheduleType(s);
             }
         });
-
+        processesPanel = new JPanel();
         FlowLayout layout = new FlowLayout();
         Dimension sd = layout.preferredLayoutSize(processesPanel);
         sd.width = 400;
         processesPanel.setLayout(layout);
-
         JPanel p = new JPanel(new GridLayout(1,6));
         p.setPreferredSize(new Dimension(350,50));
         p.add(new JLabel("INDEX"));
@@ -135,13 +132,14 @@ public class GUI extends JFrame {
         p.add(new JLabel("PRIORITY"));
         p.add(new JLabel("ARRIVAL"));
         processesPanel.add(p);
-
+        scheduleButton = new JButton();
         scheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setScheduleButton();
             }
         });
+        addProcessorButton = new JButton();
         addProcessorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -172,17 +170,18 @@ public class GUI extends JFrame {
     {
         ProcessWindow window = new ProcessWindow();
     }
-
+    //TODO main
     public static void main(String[] args)
     {
         scheduler = new Scheduler();
         scheduler.addTestData();
 
         JFrame frame = new JFrame("Scheduler");
-        frame.setContentPane(new GUI().mainPanel);
+        GUI gui = new GUI();
+        frame.setContentPane(gui.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        scheduler.schedule();
     }
-
 }

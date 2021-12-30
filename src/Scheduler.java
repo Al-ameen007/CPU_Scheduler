@@ -30,6 +30,7 @@ public class Scheduler {
         switch(scheduleType)
         {
             case AGAT:
+
                 // Call agat scheduler and return Object with ScheduleData
                 break;
             case SRTF:
@@ -75,7 +76,7 @@ public class Scheduler {
     {
         return processes.size();
     }
-
+    //TODO input is here
     void addTestData()
     {
         scheduleType = ScheduleType.SRTF;
@@ -94,4 +95,5 @@ public class Scheduler {
         processes.add(p6);
         System.out.println(processes.toString());
     }
+    
 }
