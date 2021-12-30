@@ -26,4 +26,17 @@ public class Process {
         this.remainingTime = burstTime;
     }
 
+    Process(Process other)
+    {
+        this.name = other.name;
+        this.color = other.color;
+        this.arrivalTime = other.arrivalTime;
+        this.burstTime = other.burstTime;
+        this.priorityNumber = other.priorityNumber;
+        this.waitingTime = 0;
+        this.turnaroundTime = 0;
+        this.dummyBurstTime = burstTime;
+        this.remainingTime = burstTime;
+    }
+
 }

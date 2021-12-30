@@ -22,6 +22,11 @@ public class Scheduler {
     // TODO Schedule based on current type
     public ScheduleData schedule()
     {
+        if(processes.isEmpty()) {
+            System.out.println("Null data");
+            throw new RuntimeException();
+        }
+
         switch(scheduleType)
         {
             case AGAT:
@@ -29,6 +34,7 @@ public class Scheduler {
                 break;
             case SRTF:
                 ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
+                System.out.println("Scheudling...");
                 srtf.Schedule();
                 return srtf.getScheduleData();
             case SJF:
@@ -72,18 +78,20 @@ public class Scheduler {
 
     void addTestData()
     {
+        scheduleType = ScheduleType.SRTF;
         processes = new ArrayList<>(5);
-        Process p1 = new Process("p1", Color.red, 0, 8, 0, 0);
-        Process p2 = new Process("p2", Color.blue, 1, 4, 0,0 );
+        Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
+        Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );
         Process p3 = new Process("p3", Color.green, 2, 2, 0, 0);
-        Process p4 = new Process("p4", Color.yellow, 3, 1, 0, 0);
-        Process p5 = new Process("p5", Color.black, 4, 3, 0, 0);
-        Process p6 = new Process("p6", Color.pink, 5, 2, 0, 0);
+        Process p4 = new Process("p4", Color.yellow, 1, 3, 0, 0);
+        Process p5 = new Process("p5", Color.black, 3, 4, 0, 0);
+        Process p6 = new Process("p6", Color.pink, 2, 5, 0, 0);
         processes.add(p1);
         processes.add(p2);
         processes.add(p3);
         processes.add(p4);
         processes.add(p5);
         processes.add(p6);
+        System.out.println(processes.toString());
     }
 }

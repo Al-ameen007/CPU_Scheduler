@@ -112,6 +112,14 @@ public class GUI extends JFrame {
         scheduleOptions.addItem("SRTF");
         scheduleOptions.addItem("SJF");
         scheduleOptions.addItem("Priority");
+        scheduleOptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = scheduleOptions.getSelectedItem().toString();
+                schedulerName.setText("Schedule Name: " + s);
+                scheduler.setScheduleType(s);
+            }
+        });
 
         FlowLayout layout = new FlowLayout();
         Dimension sd = layout.preferredLayoutSize(processesPanel);
@@ -144,9 +152,6 @@ public class GUI extends JFrame {
 
     private void setScheduleButton()
     {
-        String s = scheduleOptions.getSelectedItem().toString();
-        schedulerName.setText("Schedule Name: " + s);
-        scheduler.setScheduleType(s);
         ScheduleData output = scheduler.schedule();
         awatLabel.setText("AWAT:" + output.avgWaitingTime);
         atatLabel.setText("ATAT:" + output.avgTurnaroundTime);
@@ -171,7 +176,7 @@ public class GUI extends JFrame {
     public static void main(String[] args)
     {
         scheduler = new Scheduler();
-        //scheduler.addTestData();
+        scheduler.addTestData();
 
         JFrame frame = new JFrame("Scheduler");
         frame.setContentPane(new GUI().mainPanel);

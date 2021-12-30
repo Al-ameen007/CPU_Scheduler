@@ -23,6 +23,7 @@ public class ProcessGraph extends JPanel {
         for (int i = 0; i < totalLength; i++)
         {
             ProcessGraphData p = data.get(i);
+
             /*
             if(p.processName == "null")
             {
