@@ -44,13 +44,18 @@ public class AgatScheduler {
                 idx = i;
             }
         }
-        // TODO if more than process got the same agatFactor we'll pick the lowest arrival time but is it Necessarly? ASK the TA
         if(idx == index) //you can't pick the last executed processes
             return -1; //No one is better in the agatFactor
         return idx;
     }
-    public void agatS(){
+    void update_graph(int n, ProcessAgat p, ArrayList<ProcessGraphData> output){
+        for(int i = 0; i < n; i++){
+            output.add(new ProcessGraphData(p.name, p.color));
+        }
+    }
+    public ScheduleData agatS(){
         //The Vs computed before the execution
+        ArrayList<ProcessGraphData> output = new ArrayList<ProcessGraphData>();
         int index = 0;
         update_V1();
         while(processes.size() > 0){
@@ -58,19 +63,21 @@ public class AgatScheduler {
             update_AgFactor();
             System.out.print(" " + current_Time + " ");
             processes.get(index).info();
-            //System.out.print(processes.get(index).name);
             if(processes.get(index).quantumFactor() >= processes.get(index).burstTime){ //0.4Q > buresetTime => No need to work
                 current_Time += processes.get(index).burstTime;
+                update_graph(processes.get(index).burstTime, processes.get(index), output);
                 processes.remove(index); //delete the process
                 System.out.println(" " + current_Time + " ");
                 continue;
             }
             current_Time += processes.get(index).quantumFactor(); //update the currentTime
+            update_graph((int)processes.get(index).quantumFactor(), processes.get(index), output);
             processes.get(index).burstTime -= processes.get(index).quantumFactor(); //update the burset time
             int otherIndex = better(index);
             if(otherIndex == -1){ //No one is better than me => continue working
                 if(processes.get(index).burstTime > (processes.get(index).quantum - processes.get(index).quantumFactor())){
                     //if the remaining more than the remaining quantum
+                    update_graph((int)(processes.get(index).quantum - processes.get(index).quantumFactor()), processes.get(index), output);
                     processes.get(index).burstTime -= (processes.get(index).quantum - processes.get(index).quantumFactor());
                     current_Time += (processes.get(index).quantum - processes.get(index).quantumFactor());
                     processes.get(index).quantum += 2;
@@ -81,22 +88,25 @@ public class AgatScheduler {
                     continue;
                 }else{
                     //The remaining quantum is enough
+                    update_graph(processes.get(index).burstTime, processes.get(index), output);
                     current_Time += processes.get(index).burstTime;
                     processes.remove(index);
                     System.out.println(" " + current_Time + " ");
                     continue;
                 }
-            }else{
+            }else{ 
                 //some one is better than you
                 //it'is not arrived betW 0, 0.4Q but it arrived betW 0.4Q, Q; Note currentTime is now 0.4Q
                 if(!(processes.get(otherIndex).arrivalTime <= current_Time)){ //it is not already arrived, arrived during exec
                     if(processes.get(index).burstTime <= (processes.get(otherIndex).arrivalTime - current_Time)){
                         //if the remain quantum is enough
+                        update_graph(processes.get(index).burstTime, processes.get(index), output);
                         current_Time += (processes.get(index).burstTime);
                         processes.remove(index);
                         System.out.println(" " + current_Time + " ");
                         continue;
                     }
+                    update_graph((int)(processes.get(otherIndex).arrivalTime - current_Time), processes.get(index), output);
                     processes.get(index).burstTime -= (processes.get(otherIndex).arrivalTime - current_Time);
                     processes.get(index).quantum += (processes.get(otherIndex).arrivalTime - current_Time);
                     current_Time += (processes.get(otherIndex).arrivalTime - current_Time);
@@ -127,5 +137,7 @@ public class AgatScheduler {
             }
             System.out.println(" " + current_Time + " ");
         }
+        System.out.println("SIZE::: " + output.size());
+        return new ScheduleData(0, 0, output);
     }
 }

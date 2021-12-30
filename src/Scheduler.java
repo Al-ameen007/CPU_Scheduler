@@ -11,6 +11,7 @@ public class Scheduler {
     }
 
     private ArrayList<Process> processes;
+    private ArrayList<ProcessAgat> processAgats;
     private ScheduleType scheduleType;
 
     Scheduler()
@@ -30,9 +31,10 @@ public class Scheduler {
         switch(scheduleType)
         {
             case AGAT:
-
+                AgatScheduler agatScheduler = new AgatScheduler(processAgats);
+                System.out.println("Scheudling...");
+                return agatScheduler.agatS();
                 // Call agat scheduler and return Object with ScheduleData
-                break;
             case SRTF:
                 ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
                 System.out.println("Scheudling...");
@@ -76,11 +78,21 @@ public class Scheduler {
     {
         return processes.size();
     }
-    //TODO input is here
+    //TODO input is here Modified to test my agat
     void addTestData()
-    {
-        scheduleType = ScheduleType.SRTF;
-        processes = new ArrayList<>(5);
+    {   
+        ProcessAgat p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);
+        ProcessAgat p2 = new ProcessAgat("p2", Color.green, 3, 6, 9, 3);
+        ProcessAgat p3 = new ProcessAgat("p3", Color.yellow, 4, 10, 3, 5);
+        ProcessAgat p4 = new ProcessAgat("p4", Color.black, 29, 4, 8, 2);
+        ArrayList<ProcessAgat> process = new ArrayList<ProcessAgat>();
+        process.add(p1);
+        process.add(p2);
+        process.add(p3);
+        process.add(p4);
+
+        scheduleType = ScheduleType.AGAT;
+        /*processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
         Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );
         Process p3 = new Process("p3", Color.green, 2, 2, 0, 0);
@@ -92,8 +104,7 @@ public class Scheduler {
         processes.add(p3);
         processes.add(p4);
         processes.add(p5);
-        processes.add(p6);
+        processes.add(p6);*/
         System.out.println(processes.toString());
-    }
-    
+    }    
 }
