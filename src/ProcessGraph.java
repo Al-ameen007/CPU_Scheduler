@@ -8,10 +8,10 @@ public class ProcessGraph extends JPanel {
     private static int STEP_LENGTH = 30;
     private ArrayList<ProcessGraphData> data;
 
-    ProcessGraph(ArrayList<ProcessGraphData> data)
-    {
+    ProcessGraph(ArrayList<ProcessGraphData> data) {
         this.data = data;
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -20,8 +20,7 @@ public class ProcessGraph extends JPanel {
         String lastP = data.get(0).processName;
         int processLength = 0;
         int rectX = 25, rectY = 25;
-        for (int i = 0; i < totalLength; i++)
-        {
+        for (int i = 0; i < totalLength; i++) {
             ProcessGraphData p = data.get(i);
 
             /*
@@ -33,21 +32,19 @@ public class ProcessGraph extends JPanel {
                 continue;
             }*/
 
-            if(p.processName != lastP || i == totalLength - 1)
-            {
-                g.setColor(data.get(i-1).color);
+            if (p.processName != lastP || i == totalLength - 1) {
+                g.setColor(data.get(i - 1).color);
                 g.fillRect(rectX + 1, rectY + 1, currentProcessSegmentLength - 1, RECT_HEIGHT - 1);
                 g.drawRect(rectX, rectY, currentProcessSegmentLength, RECT_HEIGHT);
                 g.setColor(Color.black);
-                g.drawLine(rectX, rectY, rectX, rectY + (int)(RECT_HEIGHT * 1.35f));
-                g.drawString(Integer.toString(i - processLength), rectX + 2, rectY + (int)(RECT_HEIGHT * 1.35f));
+                g.drawLine(rectX, rectY, rectX, rectY + (int) (RECT_HEIGHT * 1.35f));
+                g.drawString(Integer.toString(i - processLength), rectX + 2, rectY + (int) (RECT_HEIGHT * 1.35f));
                 rectX += currentProcessSegmentLength;
                 currentProcessSegmentLength = 0;
                 processLength = 0;
-                if(i == totalLength - 1)
-                {
-                    g.drawLine(rectX, rectY, rectX, rectY + (int)(RECT_HEIGHT * 1.35f));
-                    g.drawString(Integer.toString(totalLength), rectX + 2, rectY + (int)(RECT_HEIGHT * 1.35f));
+                if (i == totalLength - 1) {
+                    g.drawLine(rectX, rectY, rectX, rectY + (int) (RECT_HEIGHT * 1.35f));
+                    g.drawString(Integer.toString(totalLength), rectX + 2, rectY + (int) (RECT_HEIGHT * 1.35f));
                 }
             }
             processLength++;

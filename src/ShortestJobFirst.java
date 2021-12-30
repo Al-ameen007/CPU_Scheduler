@@ -4,6 +4,10 @@ import java.util.Comparator;
 public class ShortestJobFirst {
     private static int threshold = 0;
     private static int k = 0;
+    static double avgWaitingTime = 0;
+    static double avgTurnaroundTime = 0;
+    static int time = 0;
+    ArrayList<ProcessGraphData> graphData = new ArrayList<ProcessGraphData>();
     ArrayList<Process> processes;
 
     ShortestJobFirst(ArrayList<Process> processes) {
@@ -17,11 +21,11 @@ public class ShortestJobFirst {
 
     public static ArrayList<Process> shortestJobFirst(ArrayList<Process> processes) {
         ArrayList<Process> shortestJobProcesses = new ArrayList<>(sortByShortestTime(processes));
-        int n = processes.size(), time = 0, totalBurst = 0;
+        int n = processes.size(), totalBurst = 0;
         for (Process process : shortestJobProcesses) {
             totalBurst += process.burstTime;
         }
-        while(k == 0){
+        while (k == 0) {
             for (Process process : shortestJobProcesses) {
                 totalBurst += process.burstTime;
             }
@@ -32,6 +36,7 @@ public class ShortestJobFirst {
         for (int i = 0; i < n; i++)
             for (int j = 0; j < shortestJobProcesses.size(); j++) {
                 if (shortestJobProcesses.get(j).arrivalTime <= time) {
+                    shortestJobProcesses.get(j).startTime = time;
                     shortestJobProcesses.get(j).starved = time - shortestJobProcesses.get(j).arrivalTime > threshold;
                     shortestJobProcesses.get(j).waitingTime = time - shortestJobProcesses.get(j).arrivalTime;
                     shortestJobProcesses.get(j).turnaroundTime = shortestJobProcesses.get(j).waitingTime + shortestJobProcesses.get(j).burstTime;
@@ -52,14 +57,14 @@ public class ShortestJobFirst {
             totalWaitingTime += value.waitingTime;
             totalTurnaroundTime += value.turnaroundTime;
         }
-        double averageWaitingTime = totalWaitingTime / output.size();
-        double averageTurnaroundTime = totalTurnaroundTime / output.size();
+        avgWaitingTime = totalWaitingTime / output.size();
+        avgTurnaroundTime = totalTurnaroundTime / output.size();
 
         for (Process process : output) {
             System.out.println("Process name: " + process.name + " ,Process waiting time: " + process.waitingTime + " , Process turnaround time: " + process.turnaroundTime);
         }
-        System.out.println("Average Waiting Time is: " + averageWaitingTime);
-        System.out.println("Average Turnaround Time is: " + averageTurnaroundTime);
+        System.out.println("Average Waiting Time is: " + avgWaitingTime);
+        System.out.println("Average Turnaround Time is: " + avgTurnaroundTime);
     }
 
     public static boolean isStarved(ArrayList<Process> processes) {
@@ -73,7 +78,7 @@ public class ShortestJobFirst {
         return flag && (processes.size() > 5);
     }
 
-    public static void solveStarve(ArrayList<Process> input) {
+    public static ArrayList<Process> solveStarve(ArrayList<Process> input) {
         input = new ArrayList<>(shortestJobFirst(input));
         int i = 0;
         while (isStarved(input) && i < 50) {
@@ -87,5 +92,21 @@ public class ShortestJobFirst {
             input = new ArrayList<>(shortestJobFirst(input));
         }
         display(input);
+        return (input);
     }
+
+    public void Schedule(ArrayList<Process> input) {
+        input = solveStarve(input);
+        for (int i = 0; i < input.size(); i++) {
+            Process ps = processes.get(i);
+            for (int j = ps.startTime; j < ps.startTime + ps.burstTime; j++){
+                graphData.add(new ProcessGraphData(ps.name, ps.color));
+            }
+        }
+    }
+
+    public ScheduleData getScheduleData() {
+        return new ScheduleData(avgWaitingTime, avgTurnaroundTime, graphData);
+    }
+
 }

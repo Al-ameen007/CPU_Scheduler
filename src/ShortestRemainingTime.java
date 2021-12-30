@@ -9,8 +9,8 @@ public class ShortestRemainingTime {
     private ArrayList<ProcessGraphData> graphData = new ArrayList<ProcessGraphData>();
     private boolean shouldSolveStarvation = false;
 
-    int avgWaitingTime = 0;
-    int avgTurnaroundTime = 0;
+    double avgWaitingTime = 0;
+    double avgTurnaroundTime = 0;
     int sumWaiting = 0;
     int sumTurnaround = 0;
     int minRemainingTime;
@@ -131,23 +131,16 @@ public class ShortestRemainingTime {
 
     public void displayOutput()
     {
-        System.out.print("Execution Order: ");
-        for (String s: output) {
-            System.out.print(s + " ");
-        }
-
-        System.out.println();
-
         for(Process p : processesCompleted)
         {
-            System.out.print("Name: " + p.name + ". Waiting Time: " + p.waitingTime + ". Turnaround: " + p.turnaroundTime + "\n");
+            System.out.println("Process name: " + p.name + " ,Process waiting time: " + p.waitingTime + " , Process turnaround time: " + p.turnaroundTime);
         }
 
         int n = processesCompleted.size();
         avgWaitingTime = sumWaiting / n;
         avgTurnaroundTime =  sumTurnaround / n;
-        System.out.println("Avg Waiting Time: " + avgWaitingTime);
-        System.out.println("Avg Turnaround Time: " + avgTurnaroundTime);
+        System.out.println("Average Waiting Time is: " + avgWaitingTime);
+        System.out.println("Average Turnaround Time is: " + avgTurnaroundTime);
     }
 
     public ScheduleData getScheduleData ()

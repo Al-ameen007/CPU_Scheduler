@@ -12,9 +12,11 @@ public class Process {
     int turnaroundTime;
     boolean starved = false;
     int remainingTime;
+    int quantum;
+    int startTime;
+    double agatFactor;
 
-    Process(String name, Color color, int burstTime, int arrivalTime, int priorityNumber, int quantum)
-    {
+    Process(String name, Color color, int burstTime, int arrivalTime, int priorityNumber, int quantum) {
         this.name = name;
         this.color = color;
         this.arrivalTime = arrivalTime;
@@ -24,10 +26,10 @@ public class Process {
         this.turnaroundTime = 0;
         this.dummyBurstTime = burstTime;
         this.remainingTime = burstTime;
+        this.quantum = quantum;
     }
 
-    Process(Process other)
-    {
+    Process(Process other) {
         this.name = other.name;
         this.color = other.color;
         this.arrivalTime = other.arrivalTime;
@@ -37,6 +39,22 @@ public class Process {
         this.turnaroundTime = 0;
         this.dummyBurstTime = burstTime;
         this.remainingTime = burstTime;
+        this.quantum = other.quantum;
+        this.agatFactor = other.agatFactor;
     }
+
+    double quantumFactor() {
+        return Math.round(quantum * 0.4);
+    }
+
+    void info() {
+        System.out.print("Name: " + name + " BurstTime: " + burstTime + " Quantum: " + quantum + "Agat Factor: " + agatFactor);
+    }
+
+    void update_agate(AgatScheduler agatScheduler) {
+        //all of them share the same V1, V2
+        agatFactor = Math.ceil((10 - priorityNumber) + Math.ceil(arrivalTime / agatScheduler.v1) + Math.ceil(burstTime / agatScheduler.v2));
+    }
+
 
 }
