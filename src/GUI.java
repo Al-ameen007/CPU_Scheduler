@@ -1,25 +1,8 @@
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.data.category.IntervalCategoryDataset;
-import org.jfree.data.gantt.Task;
-import org.jfree.data.gantt.TaskSeries;
-import org.jfree.data.gantt.TaskSeriesCollection;
-import org.jfree.data.statistics.HistogramDataset;
-import org.jfree.data.time.SimpleTimePeriod;
-import org.jfree.data.time.TimePeriod;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JLabel;
-import javax.xml.crypto.dsig.SignatureMethod;
 
 public class GUI extends JFrame {
 
@@ -144,7 +127,6 @@ public class GUI extends JFrame {
         p.add(new JLabel("QUANTUM"));
         processesPanel.add(p);
 
-
         scheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -164,55 +146,20 @@ public class GUI extends JFrame {
         String s = scheduleOptions.getSelectedItem().toString();
         schedulerName.setText("Schedule Name: " + s);
         scheduler.setScheduleType(s);
-        scheduler.schedule();
+        ArrayList<ProcessGraphData> graph = scheduler.schedule();
         updateSchedulerData();
-        drawScheduleGraph();
+        drawScheduleGraph(graph);
     }
 
-    private void drawScheduleGraph()
+    private void drawScheduleGraph(ArrayList<ProcessGraphData> data)
     {
-        IntervalCategoryDataset dataset = getCategoryDataset();
-        JFreeChart chart = ChartFactory.createGanttChart(
-                "Schedule",
-                "Processes",
-                "Time (S)"
-                , dataset);
-
-        System.out.println("Drawing");
-        ChartPanel panel = new ChartPanel(chart);
-        JFrame frame = new JFrame("Process");
-        frame.add(panel);
-        frame.setResizable(true);
-        frame.setSize(1280 ,720);
-        frame.setLayout(new FlowLayout());
-
-        CategoryPlot plot = chart.getCategoryPlot();
-        CategoryItemRenderer renderer = plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.black);
-
-        DateAxis axis = (DateAxis) plot.getRangeAxis();
-        axis.setDateFormatOverride(new SimpleDateFormat("SS"));
-
+        ProcessGraph mainPanel = new ProcessGraph(data);
+        JFrame frame = new JFrame("DrawRect");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(mainPanel);
         frame.pack();
+        frame.setLocationByPlatform(true);
         frame.setVisible(true);
-
-    }
-    private IntervalCategoryDataset getCategoryDataset() {
-        TaskSeries series1 = new TaskSeries("P1");
-        Task p1 = new Task("Process 1", new SimpleTimePeriod(0,60));
-        p1.addSubtask(new Task("Process 1", new SimpleTimePeriod(7, 23)));
-        p1.addSubtask(new Task("Process 1", new SimpleTimePeriod(50, 60)));
-        series1.add(p1);
-
-        TaskSeries series2 = new TaskSeries("P2");
-        series2.add(new Task("P2", new SimpleTimePeriod(21, 40)));
-
-        TaskSeriesCollection taskseriescollection = new TaskSeriesCollection();
-
-        taskseriescollection.add(series1);
-        taskseriescollection.add(series2);
-
-        return taskseriescollection;
     }
 
     private void updateSchedulerData()
@@ -227,9 +174,15 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
+
         scheduler = new Scheduler();
+        scheduler.addTestData();
+        ArrayList<ProcessGraphData> graph = scheduler.schedule();
+        ProcessGraph mainPanel = new ProcessGraph(graph);
+
         JFrame frame = new JFrame("Scheduler");
-        frame.setContentPane(new GUI().mainPanel);
+        frame.add(mainPanel);
+        //frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(720,720);
         frame.setMinimumSize(new Dimension(720, 720));

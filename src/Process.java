@@ -1,6 +1,10 @@
+import org.jfree.data.time.SimpleTimePeriod;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Process {
+
     String name;
     Color color;
     int arrivalTime;
@@ -12,7 +16,8 @@ public class Process {
     boolean starved = false;
     int remainingTime;
 
-    Process(String name, Color color, int arrivalTime, int burstTime, int priorityNumber, int quantum) {
+    Process(String name, Color color, int arrivalTime, int burstTime, int priorityNumber, int quantum)
+    {
         this.name = name;
         this.color = color;
         this.arrivalTime = arrivalTime;
@@ -23,4 +28,5 @@ public class Process {
         this.dummyBurstTime = burstTime;
         this.remainingTime = burstTime;
     }
+
 }
