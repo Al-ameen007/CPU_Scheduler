@@ -3,20 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Scheduler {
-    // used to return schedule data to GUI
-    public class ScheduleData {
-        // Array of processes output
-        int avgWaitingTime;
-        int avgTurnaroundTime;
 
-        ScheduleData(int avgWaitingTime, int avgTurnaroundTime)
-        {
-            this.avgWaitingTime = avgWaitingTime;
-            this.avgTurnaroundTime = avgTurnaroundTime;
-        }
-    }
-    //TODO input must be sorted by Arrival time
-    //TODO change the arraylist to queue ask the TA
     public enum ScheduleType {
         AGAT,
         SRTF,
@@ -34,18 +21,25 @@ public class Scheduler {
     }
 
     // TODO Schedule based on current type
-    public ArrayList<ProcessGraphData> schedule()
+    public ScheduleData schedule()
     {
-        System.out.println("Scheduling...");
-        srtf.Schedule();
-        return srtf.getGraphData();
-    }
-
-    public ScheduleData getScheduleOutput()
-    {
-        // TODO get actual data from scheduler
-        Random random = new Random();
-        return new ScheduleData(random.nextInt(2000),random.nextInt(2000));
+        switch(scheduleType)
+        {
+            case AGAT:
+                // Call agat scheduler and return Object with ScheduleData
+                break;
+            case SRTF:
+                ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
+                srtf.Schedule();
+                return srtf.getScheduleData();
+            case SJF:
+                // Call SJF scheduler and return Object with ScheduleData
+                break;
+            case Priority:
+                // Call Priority scheduler and return Object with ScheduleData
+                break;
+        }
+        return new ScheduleData(0,0,null);
     }
 
     public void createProcess(String name, int burstTime, int arrivalTime, int priority,  int quantumTime) {
@@ -53,7 +47,8 @@ public class Scheduler {
         System.out.println("created Process" + name);
     }
 
-    public void setScheduleType(String type) {
+    public void setScheduleType(String type)
+    {
         switch(type)
         {
             case "AGAT":
@@ -76,11 +71,9 @@ public class Scheduler {
         return processes.size();
     }
 
-    ShortestRemainingTime srtf;
-
     void addTestData()
     {
-        ArrayList<Process> processes = new ArrayList<>(5);
+        processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 0, 8, 0, 0);
         Process p2 = new Process("p2", Color.blue, 1, 4, 0,0 );
         Process p3 = new Process("p3", Color.green, 2, 2, 0, 0);
@@ -93,6 +86,5 @@ public class Scheduler {
         processes.add(p4);
         processes.add(p5);
         processes.add(p6);
-        srtf = new ShortestRemainingTime(processes);
     }
 }

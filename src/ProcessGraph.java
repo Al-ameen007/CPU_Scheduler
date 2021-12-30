@@ -18,6 +18,7 @@ public class ProcessGraph extends JPanel {
         int totalLength = data.size();
         int currentProcessSegmentLength = 0;
         String lastP = data.get(0).processName;
+        int processLength = 0;
         int rectX = 25, rectY = 25;
         for (int i = 0; i < totalLength; i++)
         {
@@ -29,15 +30,17 @@ public class ProcessGraph extends JPanel {
                 g.drawRect(rectX, rectY, currentProcessSegmentLength, RECT_HEIGHT);
                 g.setColor(Color.black);
                 g.drawLine(rectX, rectY, rectX, rectY + (int)(RECT_HEIGHT * 1.35f));
-                g.drawString(Integer.toString(i-1), rectX + 2, rectY + (int)(RECT_HEIGHT * 1.35f));
+                g.drawString(Integer.toString(i - processLength), rectX + 2, rectY + (int)(RECT_HEIGHT * 1.35f));
                 rectX += currentProcessSegmentLength;
                 currentProcessSegmentLength = 0;
+                processLength = 0;
                 if(i == totalLength - 1)
                 {
                     g.drawLine(rectX, rectY, rectX, rectY + (int)(RECT_HEIGHT * 1.35f));
                     g.drawString(Integer.toString(totalLength), rectX + 2, rectY + (int)(RECT_HEIGHT * 1.35f));
                 }
             }
+            processLength++;
             currentProcessSegmentLength += STEP_LENGTH;
             lastP = p.processName;
         }
@@ -45,7 +48,6 @@ public class ProcessGraph extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        // so that our GUI is big enough
-        return new Dimension(500, 150);
+        return new Dimension(720, 150);
     }
 }

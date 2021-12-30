@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class ShortestRemainingTime {
@@ -7,8 +6,11 @@ public class ShortestRemainingTime {
     private ArrayList<Process> processes;
     private ArrayList<Process> processesCompleted;
     private ArrayList<String> output;
-    private ArrayList<ProcessGraphData> data = new ArrayList<ProcessGraphData>();
+    private ArrayList<ProcessGraphData> graphData = new ArrayList<ProcessGraphData>();
     private boolean shouldSolveStarvation = false;
+
+    int avgWaitingTime = 0;
+    int avgTurnaroundTime = 0;
     int sumWaiting = 0;
     int sumTurnaround = 0;
     int minRemainingTime;
@@ -96,12 +98,12 @@ public class ShortestRemainingTime {
             if(i == -1) {
                 time++;
                 output.add("null");
-                data.add(new ProcessGraphData("NULL", Color.gray));
+                graphData.add(new ProcessGraphData("NULL", Color.gray));
                 continue;
             }
 
             Process ps = processes.get(i);
-            data.add(new ProcessGraphData(ps.name, ps.color));
+            graphData.add(new ProcessGraphData(ps.name, ps.color));
 
             ps.remainingTime -= 1;
             output.add(ps.name);
@@ -119,7 +121,7 @@ public class ShortestRemainingTime {
                 processesCompleted.add(ps);
             }
         }
-        System.out.println("Time:" + time);
+
         displayOutput();
     }
 
@@ -138,12 +140,14 @@ public class ShortestRemainingTime {
         }
 
         int n = processesCompleted.size();
-        System.out.println("Avg Waiting Time: " + sumWaiting / n);
-        System.out.println("Avg Turnaround Time: " + sumTurnaround / n);
+        avgWaitingTime = sumWaiting / n;
+        avgTurnaroundTime =  sumTurnaround / n;
+        System.out.println("Avg Waiting Time: " + avgWaitingTime);
+        System.out.println("Avg Turnaround Time: " + avgTurnaroundTime);
     }
 
-    public ArrayList<ProcessGraphData> getGraphData ()
+    public ScheduleData getScheduleData ()
     {
-        return data;
+        return new ScheduleData(avgWaitingTime, avgTurnaroundTime, graphData);
     }
 }

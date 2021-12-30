@@ -1,7 +1,4 @@
-import org.jfree.data.time.SimpleTimePeriod;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Process {
 

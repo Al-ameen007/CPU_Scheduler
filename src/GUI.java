@@ -146,26 +146,20 @@ public class GUI extends JFrame {
         String s = scheduleOptions.getSelectedItem().toString();
         schedulerName.setText("Schedule Name: " + s);
         scheduler.setScheduleType(s);
-        ArrayList<ProcessGraphData> graph = scheduler.schedule();
-        updateSchedulerData();
-        drawScheduleGraph(graph);
+        ScheduleData output = scheduler.schedule();
+        awatLabel.setText("AWAT:" + output.avgWaitingTime);
+        atatLabel.setText("ATAT:" + output.avgTurnaroundTime);
+        drawScheduleGraph(output.processGraphData);
     }
 
     private void drawScheduleGraph(ArrayList<ProcessGraphData> data)
     {
         ProcessGraph mainPanel = new ProcessGraph(data);
-        JFrame frame = new JFrame("DrawRect");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("Process Execution Graph");
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
-    }
-
-    private void updateSchedulerData()
-    {
-        awatLabel.setText("AWAT:" + scheduler.getScheduleOutput().avgWaitingTime);
-        atatLabel.setText("ATAT:" + scheduler.getScheduleOutput().avgTurnaroundTime);
     }
 
     private void addNewProcess()
@@ -173,16 +167,13 @@ public class GUI extends JFrame {
         ProcessWindow window = new ProcessWindow();
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args)
+    {
         scheduler = new Scheduler();
         scheduler.addTestData();
-        ArrayList<ProcessGraphData> graph = scheduler.schedule();
-        ProcessGraph mainPanel = new ProcessGraph(graph);
 
         JFrame frame = new JFrame("Scheduler");
-        frame.add(mainPanel);
-        //frame.setContentPane(new GUI().mainPanel);
+        frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(720,720);
         frame.setMinimumSize(new Dimension(720, 720));
