@@ -23,6 +23,15 @@ public class ProcessGraph extends JPanel {
         for (int i = 0; i < totalLength; i++)
         {
             ProcessGraphData p = data.get(i);
+            /*
+            if(p.processName == "null")
+            {
+                processLength++;
+                currentProcessSegmentLength += STEP_LENGTH;
+                lastP = p.processName;
+                continue;
+            }*/
+
             if(p.processName != lastP || i == totalLength - 1)
             {
                 g.setColor(data.get(i-1).color);

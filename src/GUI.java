@@ -35,13 +35,14 @@ public class GUI extends JFrame {
             addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    scheduler.createProcess( name.getText()
+                    scheduler.createProcess( name.getText(),
+                            availableColors.get(colorIndex)
                             , Integer.parseInt(burst.getText())
                             , Integer.parseInt(arrival.getText())
                             , Integer.parseInt(priority.getText())
                             , Integer.parseInt(quantum.getText()));
                     frame.setVisible(false);
-                    processesPanel.add(getProcessPanel(name.getText(), burst.getText(),priority.getText(),quantum.getText()));
+                    processesPanel.add(getProcessPanel(name.getText(), burst.getText(),priority.getText(),arrival.getText()));
                     processesPanel.revalidate();
                 }
             });
@@ -75,7 +76,7 @@ public class GUI extends JFrame {
             square.setBackground(availableColors.get(colorIndex));
             colorIndex = (colorIndex + 1) % availableColors.size();
 
-            JPanel p = new JPanel(new GridLayout(1,6));
+            JPanel p = new JPanel(new GridLayout(1,7));
             p.setPreferredSize(new Dimension(350,50));
             p.add(new JLabel( Integer.toString(scheduler.getSize()) ));
             p.add(square);
@@ -124,7 +125,7 @@ public class GUI extends JFrame {
         p.add(new JLabel("NAME"));
         p.add(new JLabel("BURST"));
         p.add(new JLabel("PRIORITY"));
-        p.add(new JLabel("QUANTUM"));
+        p.add(new JLabel("ARRIVAL"));
         processesPanel.add(p);
 
         scheduleButton.addActionListener(new ActionListener() {
@@ -170,14 +171,11 @@ public class GUI extends JFrame {
     public static void main(String[] args)
     {
         scheduler = new Scheduler();
-        scheduler.addTestData();
+        //scheduler.addTestData();
 
         JFrame frame = new JFrame("Scheduler");
         frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(720,720);
-        frame.setMinimumSize(new Dimension(720, 720));
-        frame.setPreferredSize(new Dimension(720, 720));
         frame.pack();
         frame.setVisible(true);
     }

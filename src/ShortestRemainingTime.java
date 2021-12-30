@@ -17,7 +17,7 @@ public class ShortestRemainingTime {
     int minIndex;
 
     ShortestRemainingTime (ArrayList<Process> processes) {
-        this.processes = processes;
+        this.processes = new ArrayList<>(processes);
         processesCompleted = new ArrayList<Process>();
         output = new ArrayList<String>();
         minRemainingTime = processes.get(0).remainingTime;

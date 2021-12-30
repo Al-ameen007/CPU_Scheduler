@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Scheduler {
 
@@ -42,8 +41,8 @@ public class Scheduler {
         return new ScheduleData(0,0,null);
     }
 
-    public void createProcess(String name, int burstTime, int arrivalTime, int priority,  int quantumTime) {
-        processes.add(new Process(name, Color.black, burstTime, arrivalTime,priority,quantumTime));
+    public void createProcess(String name, Color color, int burstTime, int arrivalTime, int priority,  int quantumTime) {
+        processes.add(new Process(name, color, burstTime, arrivalTime,priority,quantumTime));
         System.out.println("created Process" + name);
     }
 
