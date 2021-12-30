@@ -5,12 +5,54 @@ public class AgatScheduler {
     double max_remaining_burst_time;
     double current_Time;
     ArrayList<Process> processes; //all the processes at the ready queue
+    ArrayList<Process> keep;
     double v1;
     double v2;
+    ArrayList<history> histories = new ArrayList<>();
     AgatScheduler(ArrayList<Process> p){
         processes = p;
+        keep = p;
         current_Time = 0;
     }
+    double avgWaitingTime(){
+        System.out.println("Waiting time: ");
+        double sum = 0;
+        for(Process p : keep){
+            double prev_time = 0;
+            double procSum = 0;
+            for(history h: histories){
+                if(p.name == h.name){
+                    sum += (h.time - prev_time);
+                    procSum += (h.time - prev_time);
+                    prev_time = h.time;
+                }
+            }
+            System.out.println(p.name + ": " + procSum);
+        }
+        System.out.println("AVG waiting Time: " + sum/keep.size());
+        return sum / keep.size();
+    }
+    double avgTurnaroundTime(){
+        System.out.println("TurnAroundTime time: ");
+        double sum = 0;
+        for(Process p : keep){
+            double prev_time = 0;
+            double procSum = 0;
+            for(history h: histories){
+                if(p.name == h.name){
+                    sum += (h.time - prev_time);
+                    procSum += (h.time - prev_time);
+                    prev_time = h.time;
+                }
+            }
+            sum += p.burstTime;
+            procSum += p.burstTime;
+            System.out.println(p.name + ": " + procSum);
+        }
+        System.out.println("AVG TurnAroundTime Time: " + sum/keep.size());
+        return sum / keep.size();
+    }
+
     void update_V1(){
         last_arrival_time = processes.get(processes.size()-1).arrivalTime;
         if (last_arrival_time > 10)
@@ -35,6 +77,7 @@ public class AgatScheduler {
         }
     }
     int better(int index){
+
         double hold = 1e9;
         int idx = -1;
         for(int i = 0; i < processes.size();i++){
@@ -62,6 +105,7 @@ public class AgatScheduler {
             update_V2();
             update_AgFactor();
             System.out.print(" " + current_Time + " ");
+            histories.add(new history(processes.get(index).name, current_Time));
             processes.get(index).info();
             if(processes.get(index).quantumFactor() >= processes.get(index).burstTime){ //0.4Q > buresetTime => No need to work
                 current_Time += processes.get(index).burstTime;
@@ -137,7 +181,6 @@ public class AgatScheduler {
             }
             System.out.println(" " + current_Time + " ");
         }
-        System.out.println("SIZE::: " + output.size());
-        return new ScheduleData(0, 0, output);
+        return new ScheduleData((int)avgWaitingTime(), (int)avgTurnaroundTime(), output);
     }
 }
