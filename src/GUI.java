@@ -90,8 +90,8 @@ public class GUI extends JFrame {
 
 
     private JButton scheduleButton;
-    private JComboBox<String> scheduleOptions;
-    public JPanel mainPanel;
+    private JComboBox scheduleOptions;
+    private JPanel mainPanel;
     private JButton addProcessorButton;
     private JLabel schedulerName;
     private JLabel awatLabel;
@@ -108,8 +108,10 @@ public class GUI extends JFrame {
         availableColors.add(Color.pink);
         availableColors.add(Color.cyan);
 
-        String proc[] = {"AGAT", "SRTF", "SJF", "Priority"};
-        scheduleOptions = new JComboBox<String>(proc);
+        scheduleOptions.addItem("AGAT");
+        scheduleOptions.addItem("SRTF");
+        scheduleOptions.addItem("SJF");
+        scheduleOptions.addItem("Priority");
         scheduleOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -118,7 +120,7 @@ public class GUI extends JFrame {
                 scheduler.setScheduleType(s);
             }
         });
-        processesPanel = new JPanel();
+        //processesPanel = new JPanel();
         FlowLayout layout = new FlowLayout();
         Dimension sd = layout.preferredLayoutSize(processesPanel);
         sd.width = 400;
@@ -132,21 +134,21 @@ public class GUI extends JFrame {
         p.add(new JLabel("PRIORITY"));
         p.add(new JLabel("ARRIVAL"));
         processesPanel.add(p);
-        scheduleButton = new JButton();
+        //scheduleButton = new JButton();
         scheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setScheduleButton();
             }
         });
-        addProcessorButton = new JButton();
+        //addProcessorButton = new JButton();
         addProcessorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addNewProcess();
             }
         });
-        mainPanel = p; //TODO seted to be null causing error OR prcesspanel but where is the mainPanel
+        //mainPanel = p; //TODO seted to be null causing error OR prcesspanel but where is the mainPanel
     }
 
     private void setScheduleButton()
@@ -178,11 +180,10 @@ public class GUI extends JFrame {
         scheduler.addTestData();
 
         JFrame frame = new JFrame("Scheduler");
-        GUI gui = new GUI();
-        frame.setContentPane(gui.mainPanel);
+        frame.setContentPane(new GUI().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        scheduler.schedule();
+        //scheduler.schedule();
     }
 }
