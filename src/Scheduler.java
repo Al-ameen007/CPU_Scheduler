@@ -30,9 +30,10 @@ public class Scheduler {
         switch(scheduleType)
         {
             case AGAT:
-
-                // Call agat scheduler and return Object with ScheduleData
-                break;
+                AgatScheduler agatScheduler = new AgatScheduler(processes);
+                System.out.println("Scheudling...");
+                return agatScheduler.agatS();
+            // Call agat scheduler and return Object with ScheduleData
             case SRTF:
                 ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
                 System.out.println("Scheudling...");
@@ -76,11 +77,21 @@ public class Scheduler {
     {
         return processes.size();
     }
-    //TODO input is here
+    //TODO input is here Modified to test my agat
     void addTestData()
     {
-        scheduleType = ScheduleType.SRTF;
-        processes = new ArrayList<>(5);
+        Process p1 = new Process("P1", Color.red, 17, 0, 4, 4);
+        Process p2 = new Process("p2", Color.green, 6, 3, 9, 3);
+        Process p3 = new Process("p3", Color.yellow, 10, 4, 3, 5);
+        Process p4 = new Process("p4", Color.black, 4, 29, 8, 2);
+        //ArrayList<Process> processes = new ArrayList<Process>();
+        processes.add(p1);
+        processes.add(p2);
+        processes.add(p3);
+        processes.add(p4);
+
+        scheduleType = ScheduleType.AGAT;
+        /*processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
         Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );
         Process p3 = new Process("p3", Color.green, 2, 2, 0, 0);
@@ -92,8 +103,7 @@ public class Scheduler {
         processes.add(p3);
         processes.add(p4);
         processes.add(p5);
-        processes.add(p6);
+        processes.add(p6);*/
         System.out.println(processes.toString());
     }
-    
 }
