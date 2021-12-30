@@ -7,14 +7,5 @@ public class ProcessAgat extends Process{
         super(name, color, arrivalTime, burstTime, priorityNumber, quantum_);
         quantum = quantum_;
     }
-    double quantumFactor(){
-        return Math.round(quantum * 0.4);
-    }
-    void info(){
-        System.out.print("Name: "+ name + " BurstTime: " + burstTime + " Quantum: " + quantum);
-    }
-    void update_agate(AgatScheduler agatScheduler){
-        //all of them share the same V1, V2
-        agatFactor = Math.ceil((10 - priorityNumber) + Math.ceil(arrivalTime / agatScheduler.v1) + Math.ceil(burstTime / agatScheduler.v2));
-    }
+    
 }

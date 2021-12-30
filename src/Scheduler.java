@@ -11,7 +11,6 @@ public class Scheduler {
     }
 
     private ArrayList<Process> processes;
-    private ArrayList<ProcessAgat> processAgats;
     private ScheduleType scheduleType;
 
     Scheduler()
@@ -31,7 +30,7 @@ public class Scheduler {
         switch(scheduleType)
         {
             case AGAT:
-                AgatScheduler agatScheduler = new AgatScheduler(processAgats);
+                AgatScheduler agatScheduler = new AgatScheduler(processes);
                 System.out.println("Scheudling...");
                 return agatScheduler.agatS();
                 // Call agat scheduler and return Object with ScheduleData
@@ -81,11 +80,11 @@ public class Scheduler {
     //TODO input is here Modified to test my agat
     void addTestData()
     {   
-        ProcessAgat p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);
-        ProcessAgat p2 = new ProcessAgat("p2", Color.green, 3, 6, 9, 3);
-        ProcessAgat p3 = new ProcessAgat("p3", Color.yellow, 4, 10, 3, 5);
-        ProcessAgat p4 = new ProcessAgat("p4", Color.black, 29, 4, 8, 2);
-        ArrayList<ProcessAgat> process = new ArrayList<ProcessAgat>();
+        Process p1 = new ProcessAgat("P1", Color.red, 0, 17, 4, 4);
+        Process p2 = new ProcessAgat("p2", Color.green, 3, 6, 9, 3);
+        Process p3 = new ProcessAgat("p3", Color.yellow, 4, 10, 3, 5);
+        Process p4 = new ProcessAgat("p4", Color.black, 29, 4, 8, 2);
+        ArrayList<Process> process = new ArrayList<Process>();
         process.add(p1);
         process.add(p2);
         process.add(p3);

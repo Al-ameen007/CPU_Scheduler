@@ -4,10 +4,10 @@ public class AgatScheduler {
     double last_arrival_time;
     double max_remaining_burst_time;
     double current_Time;
-    ArrayList<ProcessAgat> processes; //all the processes at the ready queue
+    ArrayList<Process> processes; //all the processes at the ready queue
     double v1;
     double v2;
-    AgatScheduler(ArrayList<ProcessAgat> p){
+    AgatScheduler(ArrayList<Process> p){
         processes = p;
         current_Time = 0;
     }
@@ -20,7 +20,7 @@ public class AgatScheduler {
     }
     void update_V2(){
         double hold = -1;
-        for(ProcessAgat pg : processes){
+        for(Process pg : processes){
             if(pg.burstTime > hold)
                 hold = pg.burstTime;
         }
@@ -30,7 +30,7 @@ public class AgatScheduler {
             v2 = 1;
     }
     void update_AgFactor(){
-        for(ProcessAgat pr: processes){
+        for(Process pr: processes){
             pr.update_agate(this);
         }
     }
@@ -48,7 +48,7 @@ public class AgatScheduler {
             return -1; //No one is better in the agatFactor
         return idx;
     }
-    void update_graph(int n, ProcessAgat p, ArrayList<ProcessGraphData> output){
+    void update_graph(int n, Process p, ArrayList<ProcessGraphData> output){
         for(int i = 0; i < n; i++){
             output.add(new ProcessGraphData(p.name, p.color));
         }
@@ -81,7 +81,7 @@ public class AgatScheduler {
                     processes.get(index).burstTime -= (processes.get(index).quantum - processes.get(index).quantumFactor());
                     current_Time += (processes.get(index).quantum - processes.get(index).quantumFactor());
                     processes.get(index).quantum += 2;
-                    ProcessAgat holder = processes.get(index);
+                    Process holder = processes.get(index);
                     processes.remove(index);
                     processes.add(holder);
                     System.out.println(" " + current_Time + " ");
@@ -114,7 +114,7 @@ public class AgatScheduler {
                     processes.get(index).quantum += (processes.get(index).quantum - processes.get(index).quantumFactor());
                 }
                 //adding to the top of the list
-                ProcessAgat holder = processes.get(index);
+                Process holder = processes.get(index);
                 processes.set(index, processes.get(otherIndex)); 
                 processes.remove(otherIndex);
                 int flag = -1;
@@ -129,7 +129,7 @@ public class AgatScheduler {
                 else{
                     processes.add(holder);
                     for(int i = flag; i < processes.size(); i++){
-                        ProcessAgat eat = processes.get(i);
+                        Process eat = processes.get(i);
                         processes.set(i, processes.get(processes.size() -1));
                         processes.set(processes.size()-1, eat);
                     }
