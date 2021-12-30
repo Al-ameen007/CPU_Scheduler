@@ -29,22 +29,22 @@ public class Scheduler {
         switch (scheduleType) {
             case AGAT:
                 AgatScheduler agatScheduler = new AgatScheduler(processes);
-                System.out.println("Scheudling...");
+                System.out.println("Scheduling AGAT");
                 return agatScheduler.agatS();
 
             case SRTF:
                 ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
-                System.out.println("Scheudling...");
+                System.out.println("Scheduling SRTF");
                 srtf.Schedule();
                 return srtf.getScheduleData();
             case SJF:
                 ShortestJobFirst shortestJobFirst = new ShortestJobFirst(processes);
-                System.out.println("Scheudling...");
+                System.out.println("Scheduling SJF");
                 shortestJobFirst.Schedule(processes);
                 return shortestJobFirst.getScheduleData();
             case Priority:
                 HighestPriority highestPriority = new HighestPriority(processes);
-                System.out.println("Scheudling...");
+                System.out.println("Scheduling Priority");
                 highestPriority.Schedule(processes, contextSwitch);
                 return highestPriority.getScheduleData();
         }
