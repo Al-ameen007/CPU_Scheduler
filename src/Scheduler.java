@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 public class Scheduler {
 
-    int contextSwitch = 1;
-
     public enum ScheduleType {
         AGAT,
         SRTF,
@@ -12,6 +10,7 @@ public class Scheduler {
         Priority
     }
 
+    private int contextSwitch = 1;
     private ArrayList<Process> processes;
     private ScheduleType scheduleType;
 
@@ -90,7 +89,7 @@ public class Scheduler {
         processes.add(p3);
         processes.add(p4);
 
-        scheduleType = ScheduleType.Priority;
+
         /*processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
         Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );
