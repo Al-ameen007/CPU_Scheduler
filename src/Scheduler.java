@@ -16,7 +16,7 @@ public class Scheduler {
 
     Scheduler() {
         processes = new ArrayList<>();
-        scheduleType = ScheduleType.AGAT;
+        //scheduleType = ScheduleType.AGAT;
     }
 
     // TODO Schedule based on current type
@@ -77,32 +77,15 @@ public class Scheduler {
         return processes.size();
     }
 
-    //TODO input is here Modified to test my agat
     void addTestData() {
         Process p1 = new Process("P1", Color.red, 17, 0, 4, 4);
         Process p2 = new Process("p2", Color.green, 6, 3, 9, 3);
         Process p3 = new Process("p3", Color.yellow, 10, 4, 3, 5);
         Process p4 = new Process("p4", Color.black, 4, 29, 8, 2);
-        //ArrayList<Process> processes = new ArrayList<Process>();
         processes.add(p1);
         processes.add(p2);
         processes.add(p3);
         processes.add(p4);
-
-
-        /*processes = new ArrayList<>(5);
-        Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
-        Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );
-        Process p3 = new Process("p3", Color.green, 2, 2, 0, 0);
-        Process p4 = new Process("p4", Color.yellow, 1, 3, 0, 0);
-        Process p5 = new Process("p5", Color.black, 3, 4, 0, 0);
-        Process p6 = new Process("p6", Color.pink, 2, 5, 0, 0);
-        processes.add(p1);
-        processes.add(p2);
-        processes.add(p3);
-        processes.add(p4);
-        processes.add(p5);
-        processes.add(p6);*/
         System.out.println(processes.toString());
     }
 }

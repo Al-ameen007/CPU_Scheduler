@@ -48,7 +48,7 @@ public class Process {
     }
 
     void info() {
-        System.out.print("Name: " + name + " BurstTime: " + burstTime + " Quantum: " + quantum);
+        System.out.print("Name: " + name + " BurstTime: " + burstTime + " Quantum: " + quantum + "Agat Factor: " + agatFactor);
     }
 
     void update_agate(AgatScheduler agatScheduler) {

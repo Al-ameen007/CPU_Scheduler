@@ -57,14 +57,14 @@ public class HighestPriority {
             totalWaitingTime += value.waitingTime;
             totalTurnaroundTime += value.turnaroundTime;
         }
-        double averageWaitingTime = totalWaitingTime / output.size();
-        double averageTurnaroundTime = totalTurnaroundTime / output.size();
+        avgWaitingTime = totalWaitingTime / output.size();
+        avgTurnaroundTime = totalTurnaroundTime / output.size();
 
         for (Process process : output) {
             System.out.println("Process name: " + process.name + " ,Process waiting time: " + process.waitingTime + " , Process turnaround time: " + process.turnaroundTime);
         }
-        System.out.println("Average Waiting Time is: " + averageWaitingTime);
-        System.out.println("Average Turnaround Time is: " + averageTurnaroundTime);
+        System.out.println("Average Waiting Time is: " + avgWaitingTime);
+        System.out.println("Average Turnaround Time is: " + avgTurnaroundTime);
     }
 
     public static boolean isStarved(ArrayList<Process> processes) {
