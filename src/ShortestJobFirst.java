@@ -36,6 +36,7 @@ public class ShortestJobFirst {
         for (int i = 0; i < n; i++)
             for (int j = 0; j < shortestJobProcesses.size(); j++) {
                 if (shortestJobProcesses.get(j).arrivalTime <= time) {
+                    shortestJobProcesses.get(j).startTime = time;
                     shortestJobProcesses.get(j).starved = time - shortestJobProcesses.get(j).arrivalTime > threshold;
                     shortestJobProcesses.get(j).waitingTime = time - shortestJobProcesses.get(j).arrivalTime;
                     shortestJobProcesses.get(j).turnaroundTime = shortestJobProcesses.get(j).waitingTime + shortestJobProcesses.get(j).burstTime;

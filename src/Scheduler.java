@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 public class Scheduler {
 
+    int contextSwitch = 1;
+
     public enum ScheduleType {
         AGAT,
         SRTF,
@@ -30,7 +32,7 @@ public class Scheduler {
                 AgatScheduler agatScheduler = new AgatScheduler(processes);
                 System.out.println("Scheudling...");
                 return agatScheduler.agatS();
-            // Call agat scheduler and return Object with ScheduleData
+
             case SRTF:
                 ShortestRemainingTime srtf = new ShortestRemainingTime(processes);
                 System.out.println("Scheudling...");
@@ -42,8 +44,10 @@ public class Scheduler {
                 shortestJobFirst.Schedule(processes);
                 return shortestJobFirst.getScheduleData();
             case Priority:
-                // Call Priority scheduler and return Object with ScheduleData
-                break;
+                HighestPriority highestPriority = new HighestPriority(processes);
+                System.out.println("Scheudling...");
+                highestPriority.Schedule(processes, contextSwitch);
+                return highestPriority.getScheduleData();
         }
         return new ScheduleData(0, 0, null);
     }
@@ -86,7 +90,7 @@ public class Scheduler {
         processes.add(p3);
         processes.add(p4);
 
-        scheduleType = ScheduleType.SJF;
+        scheduleType = ScheduleType.Priority;
         /*processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
         Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );

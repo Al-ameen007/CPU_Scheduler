@@ -14,7 +14,6 @@ public class Process {
     int remainingTime;
     int quantum;
     int startTime;
-    int finishTime;
     double agatFactor;
 
     Process(String name, Color color, int burstTime, int arrivalTime, int priorityNumber, int quantum) {
