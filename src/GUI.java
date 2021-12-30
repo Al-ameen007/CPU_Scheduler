@@ -146,6 +146,7 @@ public class GUI extends JFrame {
                 addNewProcess();
             }
         });
+        mainPanel = p; //TODO seted to be null causing error OR prcesspanel but where is the mainPanel
     }
 
     private void setScheduleButton()
