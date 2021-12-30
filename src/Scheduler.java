@@ -13,22 +13,19 @@ public class Scheduler {
     private ArrayList<Process> processes;
     private ScheduleType scheduleType;
 
-    Scheduler()
-    {
+    Scheduler() {
         processes = new ArrayList<>();
         scheduleType = ScheduleType.AGAT;
     }
 
     // TODO Schedule based on current type
-    public ScheduleData schedule()
-    {
-        if(processes.isEmpty()) {
+    public ScheduleData schedule() {
+        if (processes.isEmpty()) {
             System.out.println("Null data");
             throw new RuntimeException();
         }
 
-        switch(scheduleType)
-        {
+        switch (scheduleType) {
             case AGAT:
                 AgatScheduler agatScheduler = new AgatScheduler(processes);
                 System.out.println("Scheudling...");
@@ -40,24 +37,24 @@ public class Scheduler {
                 srtf.Schedule();
                 return srtf.getScheduleData();
             case SJF:
-                // Call SJF scheduler and return Object with ScheduleData
-                break;
+                ShortestJobFirst shortestJobFirst = new ShortestJobFirst(processes);
+                System.out.println("Scheudling...");
+                shortestJobFirst.Schedule(processes);
+                return shortestJobFirst.getScheduleData();
             case Priority:
                 // Call Priority scheduler and return Object with ScheduleData
                 break;
         }
-        return new ScheduleData(0,0,null);
+        return new ScheduleData(0, 0, null);
     }
 
-    public void createProcess(String name, Color color, int burstTime, int arrivalTime, int priority,  int quantumTime) {
-        processes.add(new Process(name, color, burstTime, arrivalTime,priority,quantumTime));
+    public void createProcess(String name, Color color, int burstTime, int arrivalTime, int priority, int quantumTime) {
+        processes.add(new Process(name, color, burstTime, arrivalTime, priority, quantumTime));
         System.out.println("created Process" + name);
     }
 
-    public void setScheduleType(String type)
-    {
-        switch(type)
-        {
+    public void setScheduleType(String type) {
+        switch (type) {
             case "AGAT":
                 scheduleType = ScheduleType.AGAT;
                 break;
@@ -73,13 +70,12 @@ public class Scheduler {
         }
     }
 
-    public int getSize()
-    {
+    public int getSize() {
         return processes.size();
     }
+
     //TODO input is here Modified to test my agat
-    void addTestData()
-    {
+    void addTestData() {
         Process p1 = new Process("P1", Color.red, 17, 0, 4, 4);
         Process p2 = new Process("p2", Color.green, 6, 3, 9, 3);
         Process p3 = new Process("p3", Color.yellow, 10, 4, 3, 5);
@@ -90,7 +86,7 @@ public class Scheduler {
         processes.add(p3);
         processes.add(p4);
 
-        scheduleType = ScheduleType.AGAT;
+        scheduleType = ScheduleType.SJF;
         /*processes = new ArrayList<>(5);
         Process p1 = new Process("p1", Color.red, 8, 0, 0, 0);
         Process p2 = new Process("p2", Color.blue, 4, 1, 0,0 );

@@ -9,8 +9,8 @@ public class ShortestRemainingTime {
     private ArrayList<ProcessGraphData> graphData = new ArrayList<ProcessGraphData>();
     private boolean shouldSolveStarvation = false;
 
-    int avgWaitingTime = 0;
-    int avgTurnaroundTime = 0;
+    double avgWaitingTime = 0;
+    double avgTurnaroundTime = 0;
     int sumWaiting = 0;
     int sumTurnaround = 0;
     int minRemainingTime;
